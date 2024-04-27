@@ -11,13 +11,34 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println("Main thread continues here");
 
 
         Thread thread = new Thread(() ->{
             String tName = Thread.currentThread().getName();
-            Thread.
-           System.out.println(tName + "should take 10 dots to run");
+            System.out.println(tName + "should take 10 dots to run");
+            for(int i=0; i< 10; i++){
+                System.out.print(".");
+                try{
+                    Thread.sleep(500);
+                }
+                catch (InterruptedException e){
+                    System.out.println("\nWhoops!! " + tName + "interrupted.");
+                    return;
+                }
+            }
+            System.out.println("\n" + tName + "completed.");
         });
+
+        System.out.println(thread.getName() + " starting");
+        thread.start();
+
+        System.out.println("Main thread continues here");
+        try{
+            Thread.sleep(2000);
+        }
+        catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        thread.interrupt();
     }
 }
